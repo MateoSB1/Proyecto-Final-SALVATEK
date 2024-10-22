@@ -1,0 +1,19 @@
+/* INDEX.html */
+.container-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+}
+
+.h1Title{
+    font-family: 'Orbitron';
+    font-style: 600;
+    color: $colorCeleste;
+    text-shadow: rgba(255, 255, 255, 0.3) 0.5rem 0.5rem 1rem,
+    rgba(255, 255, 255, 0.3)  0.25rem 0.25rem 0.5rem;
+    font-size: clamp(2rem, 6.5vw + 1rem, 8rem);
+    letter-spacing: clamp(2rem, 2.5vw + 0.5rem, 3rem);
+}

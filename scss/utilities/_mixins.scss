@@ -1,0 +1,30 @@
+/* @Mixins */
+@mixin sizes($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin margins-paddings($margin, $padding) {
+    margin: $margin;
+    padding: $padding;
+}
+
+@mixin flexBasico($justifyContent, $alignItems) {
+    display: flex;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+}
+
+@mixin flexDirection($flexDirection, $alignItems) {
+    display: flex;
+    flex-direction: $flexDirection;
+    align-items: $alignItems;
+}
+
+@mixin flexCompleto($flexDirection, $justifyContent, $alignItems, $textAlign) {
+    display: flex;
+    flex-direction: $flexDirection;
+    justify-content: $justifyContent;
+    align-items: $alignItems;
+    text-align: $textAlign;
+}
