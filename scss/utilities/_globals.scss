@@ -1,9 +1,8 @@
 /* CLASES Generales del Proyecto */
-* {
-    padding: 0;
+body {
     margin: 0;
+    font-family: "Open Sans", Arial, sans-serif;
+    background-color: $backgroundColor;
+    color: $colorTexto;
     box-sizing: border-box;
-    font-family: "Open Sans", sans-serif;
-    color: #f5f5f5;
-    background-color: #333333;
 }
