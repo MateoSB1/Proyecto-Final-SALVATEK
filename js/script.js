@@ -15,10 +15,10 @@ const datosUsuario = {
     ingreso: false
 };
 
-function login(intentos, maximaCantidadIntentos){
-    alert(`HOLA! Inicia Sesión en SALVATEK Electronics, Tiene ${maximaCantidadIntentos} intentos posibles de ingresar, este es su intento ${intentos+1}`);
-    let usuarioIngresado = prompt("Ingrese su nombre").toLocaleLowerCase();
-    let contraseniaIngresada = prompt("Ingrese la contraseña");
+function login(intentos, maximaCantidadIntentos) {
+    alert(`HOLA! Inicia Sesión en SALVATEK Electronics, tiene ${maximaCantidadIntentos} intentos posibles de ingresar, este es su intento ${intentos + 1}`);
+    const usuarioIngresado = prompt("Ingrese su nombre").toLocaleLowerCase();
+    const contraseniaIngresada = prompt("Ingrese la contraseña");
 
     const usuarioEncontrado = datosUsuario.usuarios.find(usuario => usuario.nombre === usuarioIngresado && usuario.contrasenia === contraseniaIngresada);
 
@@ -28,21 +28,21 @@ function login(intentos, maximaCantidadIntentos){
         datosUsuario.usuarioLogueado = usuarioEncontrado;
         return true;
     } else {
-        alert(`Le quedan ${maximaCantidadIntentos-(intentos+1)} intentos`);
+        alert(`Le quedan ${maximaCantidadIntentos - (intentos + 1)} intentos`);
+        return false;
     }
 }
 
-function loginLoop(intentos, maximaCantidadIntentos){
-    do {
-        if (login(intentos, maximaCantidadIntentos)) {
-            break;
-        }
+function loginLoop(intentos, maximaCantidadIntentos) {
+    while (!datosUsuario.ingreso && intentos < maximaCantidadIntentos) {
+        datosUsuario.ingreso = login(intentos, maximaCantidadIntentos);
         intentos++;
-    } while(intentos < maximaCantidadIntentos);
+    }
 }
 
+
 function calcularPrecioConIVA(precio) {
-    let iva = (precio * 21) / 100;
+    const iva = (precio * 21) / 100;
     return precio + iva;
 }
 
@@ -51,26 +51,32 @@ function agregarAlTotal(precioFinal) {
 }
 
 const agregarProducto = () => {
-    let id = parseInt(prompt('Ingresa el id del producto: '));
-    let nombre = prompt('Ingresa el nombre del producto: ');
-    let precio = parseFloat(prompt('Ingresa el precio del producto: '));
+    const id = parseInt(prompt('Ingresa el id del producto: '));
+    const nombre = prompt('Ingresa el nombre del producto: ');
+    const precio = parseFloat(prompt('Ingresa el precio del producto: '));
 
-    let producto = {id, nombre, precio};
-    productos.push(producto);
-}
+    if (!isNaN(id) && !isNaN(precio) && nombre) {
+        const producto = { id, nombre, precio };
+        productos.push(producto);
+        alert("Producto agregado exitosamente.");
+    } else {
+        alert("Error: Datos inválidos para el producto.");
+    }
+};
+
 
 const programaDeVentas = () => {
-    let rtaInicial = prompt("HOLA!, Bienvenido a SALVATEK Electronics, ¿Desea realizar alguna compra? (S/N): ");
+    let rtaInicial = confirm("HOLA!, Bienvenido a SALVATEK Electronics, ¿Desea realizar alguna compra? (S/N): ");
 
-    while (rtaInicial === 'S' || rtaInicial === 's') {
-        let opcion = prompt("¿Qué desea comprar de nuestro catálogo?:\n1. Notebook\n2. Smartphone\n3. Tablet\n4. Monitor");
+    while (rtaInicial) {
+        const opcion = prompt("¿Qué desea comprar de nuestro catálogo?:\n1. Notebook\n2. Smartphone\n3. Tablet\n4. Monitor");
 
         if (opcion >= '1' && opcion <= '4') {
-            let productoSeleccionado = productos[opcion - 1];
-            let confirmar = confirm('Nuestro ' + productoSeleccionado.nombre + ' SALVATEK cuesta ' + productoSeleccionado.precio + '$ sin impuestos, ¿Deseas realizar la compra?');
+            const productoSeleccionado = productos[opcion - 1];
+            const confirmar = confirm('Nuestro ' + productoSeleccionado.nombre + ' SALVATEK cuesta ' + productoSeleccionado.precio + '$ sin impuestos, ¿Deseas realizar la compra?');
 
             if (confirmar) {
-                let precioFinal = calcularPrecioConIVA(productoSeleccionado.precio);
+                const precioFinal = calcularPrecioConIVA(productoSeleccionado.precio);
                 console.log('¡¡Compra realizada con éxito!!, Precio final: ' + precioFinal + '$.');
                 agregarAlTotal(precioFinal);
             } else {
@@ -80,7 +86,7 @@ const programaDeVentas = () => {
             alert('ERROR');
         }
 
-        rtaInicial = prompt("¿Desea realizar alguna otra compra? (S/N): ");
+        rtaInicial = confirm("¿Desea realizar alguna otra compra? (S/N): ");
     }
 
     if (total > 0) {
@@ -89,14 +95,14 @@ const programaDeVentas = () => {
 }
 
 const modificarProducto = () => {
-    let id = parseInt(prompt("Ingresa el id del producto a modificar: "));
+    const id = parseInt(prompt("Ingresa el id del producto a modificar: "));
     
     // Encontrar el producto por su id
-    let producto = productos.find(p => p.id === id);
+    const producto = productos.find(p => p.id === id);
     
     if (producto) {
-        let nuevoNombre = prompt(`Ingresa el nuevo nombre para el producto (${producto.nombre}): `);
-        let nuevoPrecio = parseFloat(prompt(`Ingresa el nuevo precio para el producto (${producto.precio}$): `));
+        const nuevoNombre = prompt(`Ingresa el nuevo nombre para el producto (${producto.nombre}): `);
+        const nuevoPrecio = parseFloat(prompt(`Ingresa el nuevo precio para el producto (${producto.precio}$): `));
 
         if (nuevoNombre) producto.nombre = nuevoNombre;
         if (!isNaN(nuevoPrecio)) producto.precio = nuevoPrecio;
@@ -109,6 +115,7 @@ const modificarProducto = () => {
 
 const modificarProgramaDeVentas = () => {
     let rtaInicial = prompt("HOLA Admin!, Bienvenido a SALVATEK Electronics, ¿Qué operación desea realizar?:\n1. Agregar producto.\n2. Modificar producto.");
+    let rtaInicialOperac;
 
     do {
         if (rtaInicial === '1') {
@@ -119,8 +126,8 @@ const modificarProgramaDeVentas = () => {
             alert('ERROR');
         }
 
-        rtaInicial = prompt("¿Desea realizar alguna otra operación? (S/N): ");
-    } while (rtaInicial === 'S' || rtaInicial === 's');
+        rtaInicialOperac = confirm("¿Desea realizar alguna otra operación? (S/N): ");
+    } while (rtaInicialOperac);
 }
 
 const inicializar = () => {
