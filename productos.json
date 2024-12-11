@@ -1,0 +1,11 @@
+[
+    { "id": 1, "nombre": "GEFORCE RTX 4060 TI 8GB GIGABYTE", "tipo": "Placas de Video", "stock": 28, "precio": 580000, "imagen": "./images/GeForceRTX4060Ti.jpg" },
+    { "id": 2, "nombre": "MONITOR LG 27", "tipo": "Monitores", "stock": 12, "precio": 562000, "imagen": "./images/monitorLG27ultrag.jpg" },
+    { "id": 3, "nombre": "SAMSUNG Smart TV 70", "tipo": "TV", "stock": 10, "precio": 780000, "imagen": "./images/samsungsmart70Crystal.jpg" },
+    { "id": 4, "nombre": "Notebook Gamer Acer", "tipo": "Notebooks", "stock": 30, "precio": 1820000, "imagen": "./images/notebookAcer15.jpg" },
+    { "id": 5, "nombre": "Notebook Gamer MSI", "tipo": "Notebooks", "stock": 7, "precio": 2086000, "imagen": "./images/notebookMSI16.jpg" },
+    { "id": 6, "nombre": "Procesador Intel Core i7", "tipo": "Procesadores", "stock": 14, "precio": 387000, "imagen": "./images/procesadorIntelI7.jpg" },
+    { "id": 7, "nombre": "FC 25 PS4", "tipo": "Juegos", "stock": 64, "precio": 90000, "imagen": "./images/fc25ps4.jpg" },
+    { "id": 8, "nombre": "PlayStation 5 Slim Digital", "tipo": "Consolas", "stock": 21, "precio": 920400, "imagen": "./images/PlayStation5.jpg" }
+  ]
+  

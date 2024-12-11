@@ -1,16 +1,20 @@
-// Lista de productos
-const productos = [
-    { id: 1, nombre: 'GEFORCE RTX 4060 TI 8GB GIGABYTE', tipo: 'Placas de Video', stock: 28, precio: 580000, imagen: './images/GeForceRTX4060Ti.jpg' },
-    { id: 2, nombre: 'MONITOR LG 27', tipo: 'Monitores', stock: 12, precio: 562000, imagen: './images/monitorLG27ultrag.jpg' },
-    { id: 3, nombre: 'SAMSUNG Smart TV 70', tipo: 'TV', stock: 10, precio: 780000, imagen: './images/samsungsmart70Crystal.jpg' },
-    { id: 4, nombre: 'Notebook Gamer Acer', tipo: 'Notebooks', stock: 30, precio: 1820000, imagen: './images/notebookAcer15.jpg' },
-    { id: 5, nombre: 'Notebook Gamer MSI', tipo: 'Notebooks', stock: 7, precio: 2086000, imagen: './images/notebookMSI16.jpg' },
-    { id: 6, nombre: 'Procesador Intel Core i7', tipo: 'Procesadores', stock: 14, precio: 387000, imagen: './images/procesadorIntelI7.jpg' },
-    { id: 7, nombre: 'FC 25 PS4', tipo: 'Juegos', stock: 64, precio: 90000, imagen: './images/fc25ps4.jpg' },
-    { id: 8, nombre: 'PlayStation 5 Slim Digital', tipo: 'Consolas', stock: 21, precio: 920400, imagen: './images/PlayStation5.jpg' }
-];
-
+let productos = [];
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+// Función asincrónica para cargar productos desde un archivo JSON
+const cargarProductos = async () => {
+    try {
+        const response = await fetch('./productos.json');
+        if (!response.ok) {
+            throw new Error('Error al cargar los productos');
+        }
+        productos = await response.json();
+        renderizarProductos();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un problema al cargar los productos. Por favor, inténtalo de nuevo más tarde.');
+    }
+};
 
 // Función para renderizar los productos dinámicamente
 const renderizarProductos = () => {
@@ -75,7 +79,10 @@ const agregarProducto = (productoId, cantidad) => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
     renderizarCarrito();
     actualizarPrecioTotal();
-    actualizarContadorCarrito(); // Llama a la función para actualizar el contador
+    actualizarContadorCarrito();
+
+    // Mostrar notificación con Toastify
+    mostrarToastAgregar(producto.nombre);
 };
 
 // Asigna el evento a todos los botones de agregar
@@ -159,19 +166,19 @@ document.getElementById('compraFinal').addEventListener('submit', (e) => {
         renderizarCarrito();
         actualizarPrecioTotal();
         actualizarVistaStock();
-        actualizarContadorCarrito(); // Actualiza el contador a 0
         document.getElementById('compraFinal').reset();
-        document.getElementById('mensajeCompra').textContent = "Compra finalizada con éxito";
+        document.getElementById('mensajeCompra').innerHTML = "Compra finalizada con éxito";
+        actualizarContadorCarrito();
+
+        // Mostrar notificación con Toastify
+        mostrarToastCompra();
 
         // Reinicia todos los inputs de cantidad a 0
-        productos.forEach(producto => {
-            const inputCantidad = document.getElementById(`cantidad${producto.id}`);
-            if (inputCantidad) {
-                inputCantidad.value = 0;
-            }
-        });
+        for (let i = 1; i <= productos.length; i++) {
+            document.getElementById(`cantidad${i}`).value = 0;
+        }
     } else {
-        document.getElementById('mensajeCompra').textContent = "El carrito está vacío";
+        document.getElementById('mensajeCompra').innerHTML = "El carrito está vacío";
     }
 });
 
@@ -184,9 +191,45 @@ const actualizarContadorCarrito = () => {
     }
 };
 
+// ToastifyJS
+// Mostrar un mensaje al agregar un producto al carrito
+const mostrarToastAgregar = () => {
+    Toastify({
+        text: `Producto agregado al carrito!`,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        style: {
+            background: "linear-gradient(90deg, rgba(0,28,130,1) 0%, rgba(0,97,255,1) 52%, rgba(0,230,255,1) 100%)",
+            // background: "linear-gradient(90deg, rgba(75,0,130,1) 0%, rgba(147,0,255,1) 35%, rgba(200,200,200,1) 100%)",
+            color: "#fff",
+            fontWeight: "bold",
+            borderRadius: "8px",
+            padding: "10px",
+        },
+    }).showToast();
+};
+
+// Mostrar un mensaje al finalizar la compra
+const mostrarToastCompra = () => {
+    Toastify({
+        text: "🎉 Compra finalizada con éxito. ¡Gracias por tu compra!",
+        duration: 4000,
+        gravity: "top",
+        position: "right",
+        style: {
+            background: "linear-gradient(90deg, rgba(0,28,130,1) 0%, rgba(0,97,255,1) 52%, rgba(0,230,255,1) 100%)",
+            color: "#fff",
+            fontWeight: "bold",
+            borderRadius: "8px",
+            padding: "10px",
+        },
+    }).showToast();
+};
+
 // Inicializa la aplicación
-const app = () => {
-    renderizarProductos();
+const app = async () => {
+    await cargarProductos();
     renderizarCarrito();
     actualizarPrecioTotal();
     actualizarVistaStock();
