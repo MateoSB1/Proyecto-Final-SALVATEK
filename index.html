@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,41 @@
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header class="header">
-        <h1>SALVATEK Electronics</h1>
+        <div class="logo-title">
+            <h1>SALVATEK Electronics</h1>
+        </div>
+        <!-- <nav class="nav">
+            <ul>
+                <li><a href="#">PRODUCTOS</a></li>
+                <li><a href="#">JUEGOS</a></li>
+                <li><a href="#">NOSOTROS</a></li>
+                <li><a href="#">CONTACTO</a></li>
+            </ul>
+        </nav> -->
+        <div class="cart-widget">
+            <a href="#carrito-Foot">
+                <img src="./images/carrito.png" alt="Carrito de compras" />
+            </a>
+            <div class="cart-widget-count">3</div>
+        </div>
     </header>
-
+    <section class="sectionBANNER">
+        <img src="./images/banner.jpg" alt="Banner de logoSALVATEK">
+    </section>
     <main class="container">
         <section class="products">
             <h2>Productos</h2>
             <div class="product-list">
                 <div class="product-item">
-                    <img src="images/GeForceRTX4060Ti.jpg" alt="Placa De Video GeForce RTX 4060 Ti 8Gb Gigabyte Eagle Oc">
+                    <img src="images/GeForceRTX4060Ti.jpg"
+                        alt="Placa De Video GeForce RTX 4060 Ti 8Gb Gigabyte Eagle Oc">
                     <h3>PLACA DE VIDEO GEFORCE RTX 4060 TI 8GB GIGABYTE</h3>
                     <p>Placas de Video</p>
-                    <p>Stock: 28, Precio: $580.000</p>
+                    <p id="stock1"></p>
+                    <p>Precio: $580.000</p>
                     <label for="cantidad1">Cantidad</label>
                     <input id="cantidad1" class="input-number" value="0">
                     <button id="agregar1">Agregar</button>
@@ -32,7 +54,8 @@
                     <img src="images/monitorLG27ultrag.jpg" alt='MONITOR LG 27" 27GS85Q-B ULTRAGEAR IPS QHD 180HZ'>
                     <h3>MONITOR LG 27" 27GS85Q-B ULTRAGEAR IPS QHD 180HZ</h3>
                     <p>Monitores</p>
-                    <p>Stock: 12, Precio: $562.000</p>
+                    <p id="stock2"></p>
+                    <p>Precio: $562.000</p>
                     <label for="cantidad2">Cantidad</label>
                     <input id="cantidad2" class="input-number" value="0">
                     <button id="agregar2">Agregar</button>
@@ -41,42 +64,71 @@
                     <img src="images/samsungsmart70Crystal.jpg" alt='SAMSUNG Smart TV 70" Crystal UHD CU7000'>
                     <h3>SAMSUNG Smart TV 70" Crystal UHD CU7000</h3>
                     <p>TV</p>
-                    <p>Stock: 10, Precio: $780.000</p>
+                    <p id="stock3"></p>
+                    <p>Precio: $780.000</p>
                     <label for="cantidad3">Cantidad</label>
                     <input id="cantidad3" class="input-number" value="0">
                     <button id="agregar3">Agregar</button>
                 </div>
                 <div class="product-item">
-                    <img src="images/notebookAcer15.jpg" alt='Notebook Gamer Acer Nitro V 15.6" FHD i9-13900H RTX4060 16GB'>
+                    <img src="images/notebookAcer15.jpg"
+                        alt='Notebook Gamer Acer Nitro V 15.6" FHD i9-13900H RTX4060 16GB'>
                     <h3>Notebook Gamer Acer Nitro V 15.6" FHD i9-13900H RTX4060 16GB</h3>
                     <p>Notebooks</p>
-                    <p>Stock: 30, $1.820.000</p>
+                    <p id="stock4"></p>
+                    <p>Precio: $1.820.000</p>
                     <label for="cantidad4">Cantidad</label>
                     <input id="cantidad4" class="input-number" value="0">
                     <button id="agregar4">Agregar</button>
                 </div>
                 <div class="product-item">
-                    <img src="images/notebookMSI16.jpg" alt='Notebook Gamer MSI Sword 16HX B14VFKG-202US 16" i7-14650HX RTX4060'>
+                    <img src="images/notebookMSI16.jpg"
+                        alt='Notebook Gamer MSI Sword 16HX B14VFKG-202US 16" i7-14650HX RTX4060'>
                     <h3>Notebook Gamer MSI Sword 16HX B14VFKG-202US 16" i7-14650HX RTX4060</h3>
                     <p>Notebooks</p>
-                    <p>Stock: 7, $2.086.000</p>
+                    <p id="stock5"></p>
+                    <p>Precio: $2.086.000</p>
                     <label for="cantidad5">Cantidad</label>
                     <input id="cantidad5" class="input-number" value="0">
                     <button id="agregar5">Agregar</button>
                 </div>
                 <div class="product-item">
-                    <img src="images/procesadorIntelI7.jpg" alt='Procesador Intel Core i7 12700K 5.0GHz Turbo Socket 1700 Alder Lake'>
+                    <img src="images/procesadorIntelI7.jpg"
+                        alt='Procesador Intel Core i7 12700K 5.0GHz Turbo Socket 1700 Alder Lake'>
                     <h3>Procesador Intel Core i7 12700K 5.0GHz Turbo Socket 1700 Alder Lake</h3>
                     <p>Procesadores</p>
-                    <p>Stock: 14, $387.000</p>
+                    <p id="stock6"></p>
+                    <p>Precio: $387.000</p>
                     <label for="cantidad6">Cantidad</label>
                     <input id="cantidad6" class="input-number" value="0">
                     <button id="agregar6">Agregar</button>
                 </div>
+                <div class="product-item">
+                    <img src="images/fc25ps4.jpg"
+                        alt='EA Sports FC 25 PS4'>
+                    <h3>EA Sports FC 25 PS4</h3>
+                    <p>Juegos</p>
+                    <p id="stock7"></p>
+                    <p>Precio: $90.000</p>
+                    <label for="cantidad7">Cantidad</label>
+                    <input id="cantidad7" class="input-number" value="0">
+                    <button id="agregar7">Agregar</button>
+                </div>
+                <div class="product-item">
+                    <img src="images/PlayStation5.jpg"
+                        alt='PlayStation 5 SONY Slim Digital'>
+                    <h3>PlayStation 5 SONY Slim Digital</h3>
+                    <p>Consolas</p>
+                    <p id="stock8"></p>
+                    <p>Precio: $920.400</p>
+                    <label for="cantidad8">Cantidad</label>
+                    <input id="cantidad8" class="input-number" value="0">
+                    <button id="agregar8">Agregar</button>
+                </div>
             </div>
         </section>
 
-        <section class="cart">
+        <section class="cart" id="carrito-Foot">
             <h3>🛒 Carrito</h3>
             <ul id="listaCart"></ul>
             <p id="precioTotal"></p>
@@ -92,7 +144,8 @@
             <p id="mensajeCompra"></p>
         </section>
     </main>
-    
+
     <script src="./js/script.js"></script>
 </body>
+
 </html>

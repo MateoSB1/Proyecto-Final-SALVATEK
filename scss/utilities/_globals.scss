@@ -5,4 +5,10 @@ body {
     background-color: $backgroundColor;
     color: $colorTexto;
     box-sizing: border-box;
+    scroll-behavior: smooth;
+    overflow: auto;
+}
+
+*input {
+    border-radius: 0.2rem;
 }
