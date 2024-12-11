@@ -41,6 +41,27 @@ body {
   margin: 0.8rem;
 }
 
+@media (max-width: 768px) {
+  .header .logo-title h1 {
+    max-width: 20rem;
+  }
+}
+@media (max-width: 458px) {
+  .header .logo-title h1 {
+    display: none;
+  }
+  .header .logo-title::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 50px;
+    background-image: url("../images/logoSALVATEK.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0.8rem;
+  }
+}
 /* Carrito */
 .cart-widget {
   position: relative;

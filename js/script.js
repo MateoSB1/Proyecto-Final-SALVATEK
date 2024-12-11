@@ -1,16 +1,47 @@
 // Lista de productos
 const productos = [
-    {id: 1, nombre: 'GEFORCE RTX 4060 TI 8GB GIGABYTE', tipo: 'Placas de Video', stock: 28, precio: 580000},
-    {id: 2, nombre: 'MONITOR LG 27', tipo: 'Monitores', stock: 12, precio: 562000},
-    {id: 3, nombre: 'SAMSUNG Smart TV 70', tipo: 'TV', stock: 10, precio: 780000}, 
-    {id: 4, nombre: 'Notebook Gamer Acer', tipo: 'Notebooks', stock: 30, precio: 1820000}, 
-    {id: 5, nombre: 'Notebook Gamer MSI', tipo: 'Notebooks', stock: 7, precio: 2086000}, 
-    {id: 6, nombre: 'Procesador Intel Core i7', tipo: 'Procesadores', stock: 14, precio: 387000}, 
-    {id: 7, nombre: 'FC 25 PS4', tipo: 'Juegos', stock: 64, precio: 90000}, 
-    {id: 8, nombre: 'PlayStation 5 Slim Digital', tipo: 'Consolas', stock: 21, precio: 920400}
+    { id: 1, nombre: 'GEFORCE RTX 4060 TI 8GB GIGABYTE', tipo: 'Placas de Video', stock: 28, precio: 580000, imagen: './images/GeForceRTX4060Ti.jpg' },
+    { id: 2, nombre: 'MONITOR LG 27', tipo: 'Monitores', stock: 12, precio: 562000, imagen: './images/monitorLG27ultrag.jpg' },
+    { id: 3, nombre: 'SAMSUNG Smart TV 70', tipo: 'TV', stock: 10, precio: 780000, imagen: './images/samsungsmart70Crystal.jpg' },
+    { id: 4, nombre: 'Notebook Gamer Acer', tipo: 'Notebooks', stock: 30, precio: 1820000, imagen: './images/notebookAcer15.jpg' },
+    { id: 5, nombre: 'Notebook Gamer MSI', tipo: 'Notebooks', stock: 7, precio: 2086000, imagen: './images/notebookMSI16.jpg' },
+    { id: 6, nombre: 'Procesador Intel Core i7', tipo: 'Procesadores', stock: 14, precio: 387000, imagen: './images/procesadorIntelI7.jpg' },
+    { id: 7, nombre: 'FC 25 PS4', tipo: 'Juegos', stock: 64, precio: 90000, imagen: './images/fc25ps4.jpg' },
+    { id: 8, nombre: 'PlayStation 5 Slim Digital', tipo: 'Consolas', stock: 21, precio: 920400, imagen: './images/PlayStation5.jpg' }
 ];
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+// Función para renderizar los productos dinámicamente
+const renderizarProductos = () => {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = '';
+
+    productos.forEach(producto => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+
+        productItem.innerHTML = `
+            <img src="${producto.imagen}" alt="${producto.nombre}">
+            <h3>${producto.nombre}</h3>
+            <p>${producto.tipo}</p>
+            <p id="stock${producto.id}">Stock: ${producto.stock}</p>
+            <p>Precio: $${producto.precio.toLocaleString()}</p>
+            <label for="cantidad${producto.id}">Cantidad</label>
+            <input id="cantidad${producto.id}" class="input-number" value="0" type="number" min="0">
+            <button id="agregar${producto.id}">Agregar</button>
+        `;
+
+        productList.appendChild(productItem);
+
+        document.getElementById(`agregar${producto.id}`).addEventListener('click', () => {
+            const cantidad = parseInt(document.getElementById(`cantidad${producto.id}`).value);
+            if (cantidad > 0) {
+                agregarProducto(producto.id, cantidad);
+            }
+        });
+    });
+};
 
 // Función para actualizar la vista del stock en el HTML
 const actualizarVistaStock = () => {
@@ -48,14 +79,14 @@ const agregarProducto = (productoId, cantidad) => {
 };
 
 // Asigna el evento a todos los botones de agregar
-for (let i = 1; i <= 8; i++) {
-    document.getElementById(`agregar${i}`).addEventListener('click', () => {
-        const cantidad = parseInt(document.getElementById(`cantidad${i}`).value);
-        if (cantidad > 0) {
-            agregarProducto(i, cantidad);
-        }
-    });
-}
+// for (let i = 1; i <= 8; i++) {
+//     document.getElementById(`agregar${i}`).addEventListener('click', () => {
+//         const cantidad = parseInt(document.getElementById(`cantidad${i}`).value);
+//         if (cantidad > 0) {
+//             agregarProducto(i, cantidad);
+//         }
+//     });
+// }
 
 // Renderiza el contenido del carrito
 const renderizarCarrito = () => {
@@ -127,16 +158,20 @@ document.getElementById('compraFinal').addEventListener('submit', (e) => {
         localStorage.setItem('carrito', JSON.stringify(carrito));
         renderizarCarrito();
         actualizarPrecioTotal();
-        actualizarVistaStock(); // Actualiza la vista del stock en el HTML
-        document.getElementById('compraFinal').reset(); // Reinicia el formulario de compra
-        document.getElementById('mensajeCompra').innerHTML = "Compra finalizada con éxito"; // Muestra mensaje de éxito
+        actualizarVistaStock();
+        actualizarContadorCarrito(); // Actualiza el contador a 0
+        document.getElementById('compraFinal').reset();
+        document.getElementById('mensajeCompra').textContent = "Compra finalizada con éxito";
 
         // Reinicia todos los inputs de cantidad a 0
-        for (let i = 1; i <= 8; i++) {
-            document.getElementById(`cantidad${i}`).value = 0;
-        }
+        productos.forEach(producto => {
+            const inputCantidad = document.getElementById(`cantidad${producto.id}`);
+            if (inputCantidad) {
+                inputCantidad.value = 0;
+            }
+        });
     } else {
-        document.getElementById('mensajeCompra').innerHTML = "El carrito está vacío"; // Muestra mensaje de carrito vacío
+        document.getElementById('mensajeCompra').textContent = "El carrito está vacío";
     }
 });
 
@@ -145,12 +180,13 @@ const actualizarContadorCarrito = () => {
     const totalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
     const contadorElemento = document.querySelector('.cart-widget-count');
     if (contadorElemento) {
-        contadorElemento.textContent = totalProductos;
+        contadorElemento.textContent = totalProductos; // Cambia el número en el contador
     }
 };
 
 // Inicializa la aplicación
 const app = () => {
+    renderizarProductos();
     renderizarCarrito();
     actualizarPrecioTotal();
     actualizarVistaStock();
