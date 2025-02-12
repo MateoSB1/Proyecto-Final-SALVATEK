@@ -1,6 +1,6 @@
 # 🌐Proyecto de JavaScript de CoderHouse: SALVATEK Electronics🌟
 
-Es una aplicación web desarrollada en JavaScript que permite a los usuarios navegar y comprar productos electrónicos de la tienda **SALVATEK Electronics**. La plataforma incluye una interfaz interactiva donde los usuarios pueden agregar productos a un carrito de compras, gestionar cantidades y finalizar compras de manera intuitiva.
+Es una aplicación web desarrollada en JavaScript, siendo mi primer proyecto utilizando realmente el potencial de JavaScript, que permite a los usuarios navegar y comprar productos electrónicos de la tienda **SALVATEK Electronics**. La plataforma incluye una interfaz interactiva donde los usuarios pueden agregar productos a un carrito de compras, gestionar cantidades y finalizar compras de manera intuitiva.
 
 ## ⚙️Características Principales
 - Carga dinámica de productos desde un archivo JSON.
